@@ -1,16 +1,13 @@
 #Функция создания списка
 def enter_list():
     my_list = []
-    check_exit = True
-    while check_exit:
-        my_list.append(input("Введите элемент списка: "))
-        check_enter = input("Хотите продолжить? Y/N ").upper()
-        if check_enter == "Y":
-            check_exit = True
-        elif check_enter == "N":
-            check_exit = False
+    while True:
+        symbol = input("Введите элемент списка или Enter, чтобы закончить ")
+        #Если пользователь нажал пробел, то выход из цикла
+        if symbol == '':
+            break
         else:
-            print("Ошибка! Введите Y или N")
+            my_list.append(symbol)
     return my_list
 
 
