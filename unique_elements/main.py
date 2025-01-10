@@ -1,22 +1,16 @@
 #Функция создания списка
-from tabnanny import check
-
-
 def enter_list():
     my_list = []
     check_exit = True
     while check_exit:
         my_list.append(input("Введите элемент списка: "))
-        while True:
-            check_enter = input("Хотите продолжить? Y/N ")
-            if check_enter == "Y" or check_enter == "y":
-                break
-            elif check_enter == "N" or check_enter == "n":
-                check_exit = False
-                break
-            else:
-                print("Ошибка! Введите Y или N")
-                continue
+        check_enter = input("Хотите продолжить? Y/N ").upper()
+        if check_enter == "Y":
+            check_exit = True
+        elif check_enter == "N":
+            check_exit = False
+        else:
+            print("Ошибка! Введите Y или N")
     return my_list
 
 
