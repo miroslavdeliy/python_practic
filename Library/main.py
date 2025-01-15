@@ -40,11 +40,8 @@ def remove_book(title):
 
 #Функция выдачи книги
 def issue_book(title):
-    if title in library:
-        if library[title]["availability"] == True:
-            library[title]["availability"] = False
-        else:
-            print("Данной книги нет в наличии")
+    if title in library and library[title]["availability"] == True:
+        library[title]["availability"] = False
     else:
         print("Такой книги нет в библиотеке!")
 
