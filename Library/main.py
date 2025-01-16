@@ -61,9 +61,14 @@ def return_book(title):
 #Функция поиска книги
 def find_book(title):
     if title in library:
-        print(f"{title}: Автор: {library[title]["author"]},\
-        Год издания: {library[title]["year"]}, Наличие в библиотеке:\
-        {library[title]["availability"]}")
+        print(f"\n{title}\nАвтор: {library[title]["author"]}\
+        \nГод издания: {library[title]["year"]}")
+        if library[title]["availability"] == None:
+            print ("Наличие: Книга в библиотеке, но ее статус не определен!")
+        elif library[title]["availability"] is False:
+            print("Наличие: Книга выдана!")
+        else:
+            print("Наличие: Книга доступна!")
     else:
         print("Такой книги нет в библиотеке!")
 
@@ -91,6 +96,7 @@ book_list_view(library)
 add_book("Три мушкетера", "Александр Дюма", 1890) #Добавили книгу
 remove_book("Война миров") #Удалили книгу
 issue_book("Три мушкетера") #Забрали книгу
-issue_book("Три мушкетера") #Попытались забрать книгу
+find_book("Три мушкетера") #Поиск выданной книги
 return_book("Три мушкетера") #Вернули книгу
-find_book("Война и мир") #Поиск книги
+find_book("Три мушкетера") #Поиск возвращенной книги
+
