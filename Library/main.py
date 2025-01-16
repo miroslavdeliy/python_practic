@@ -40,12 +40,9 @@ def remove_book(title):
 
 #Функция выдачи книги
 def issue_book(title):
-    if title in library and library[title]["availability"] is True \
-        or library[title]["availability"] == None:
+    if title in library and library[title]["availability"] is not False:
         library[title]["availability"] = False
         print("Книга успешно выдана!")
-    elif library[title]["availability"] is False:
-        print("Книга уже выдана!")
     else:
         print("Такой книги нет в библиотеке!")
 
@@ -94,5 +91,6 @@ book_list_view(library)
 add_book("Три мушкетера", "Александр Дюма", 1890) #Добавили книгу
 remove_book("Война миров") #Удалили книгу
 issue_book("Три мушкетера") #Забрали книгу
+issue_book("Три мушкетера") #Попытались забрать книгу
 return_book("Три мушкетера") #Вернули книгу
 find_book("Война и мир") #Поиск книги
