@@ -42,8 +42,8 @@ def remove_book(title):
 def issue_book(title):
     if title in library and library[title]["availability"] is True \
         or library[title]["availability"] == None:
-            library[title]["availability"] = False
-            print("Книга успешно выдана!")
+        library[title]["availability"] = False
+        print("Книга успешно выдана!")
     elif library[title]["availability"] is False:
         print("Книга уже выдана!")
     else:
@@ -52,8 +52,7 @@ def issue_book(title):
 
 #Функция возврата книги
 def return_book(title):
-    if title in library and library[title]["availability"] is False \
-            or library[title]["availability"] == None:
+    if title in library and library[title]["availability"] is False:
         library[title]["availability"] = True
         print("Книгу вернули в библиотеку!")
     elif library[title]["availability"] is True:
