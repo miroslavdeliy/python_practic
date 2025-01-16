@@ -1,7 +1,4 @@
 #Просмотр списка книг
-from pickle import FALSE
-
-
 def book_list_view(library):
     for book in library:
         print(f"{book}: {library[book]["availability"]}")
@@ -42,6 +39,7 @@ def remove_book(title):
 def issue_book(title):
     if title in library and library[title]["availability"] == True:
         library[title]["availability"] = False
+        print("Книга успешно выдана!")
     else:
         print("Такой книги нет в библиотеке!")
 
@@ -50,8 +48,19 @@ def issue_book(title):
 def return_book(title):
     if title in library:
         library[title]["availability"] = True
+        print("Книгу успешно вернули!")
     else:
         print("Такой книги нет в наличии!")
+
+
+#Функция поиска книги
+def find_book(title):
+    if title in library:
+        print(f"{title}: Автор: {library[title]["author"]},\
+        Год издания: {library[title]["year"]}, Наличие в библиотеке:\
+        {library[title]["availability"]}")
+    else:
+        print("Такой книги нет в библиотеке!")
 
 
 library = {
@@ -77,8 +86,9 @@ book_list_view(library)
 add_book("Три мушкетера", "Александр Дюма", 1890)
 remove_book("Война миров")
 issue_book("Война и мир") #Забрали книгу
-print("\nОбновленный список книг в библиотеке:")
+print("Обновленный список книг в библиотеке:")
 book_list_view(library)
 return_book("Война и мир")#Вернули книгу
-print("\nОбновленный список книг в библиотеке:")
+print("Обновленный список книг в библиотеке:")
 book_list_view(library)
+find_book("Война и мир")#Поиск книги
