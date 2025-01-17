@@ -73,6 +73,47 @@ def find_book(title):
         print("Такой книги нет в библиотеке!")
 
 
+def menu():
+    check_exit = True
+    while check_exit:
+        print ("Выберите, номер действия:\n1.Вывести список книг\
+           \n2.Добавить или обновить книгу\n3.Удалить книгу\
+           \n4.Выдать книгу\n5.Вернуть книгу\n6.Посмотреть информацию о книге\
+           \n7.Выход\n")
+        try:
+            users_choice = int(input())
+        except ValueError:
+            print("Ошибка! Введите числа из списка!")
+            continue
+        if users_choice == 1:
+            book_list_view(library)
+        elif users_choice == 2:
+            title = input("Введите название книги: ")
+            author = input("Введите автора: ")
+            try:
+                year = int(input("Введите год издания: "))
+            except ValueError:
+                print("Ошибка введите год числами!")
+                continue
+            add_book(title, author, year)
+        elif users_choice == 3:
+            title = input("Введите название книги: ")
+            remove_book(title)
+        elif users_choice == 4:
+            title = input("Введите название книги: ")
+            issue_book(title)
+        elif users_choice == 5:
+            title = input("Введите название книги: ")
+            return_book(title)
+        elif users_choice == 6:
+            title = input("Введите название книги: ")
+            find_book(title)
+        elif users_choice == 7:
+            check_exit = False
+        else:
+            print("Введите только пункты из меню!")
+
+
 library = {
     "Война и мир": {
         "author": "Лев Толстой",
@@ -91,12 +132,4 @@ library = {
     }
 }
 
-print("Список книг в библиотеке:")
-book_list_view(library)
-add_book("Три мушкетера", "Александр Дюма", 1890) #Добавили книгу
-remove_book("Война миров") #Удалили книгу
-issue_book("Три мушкетера") #Забрали книгу
-find_book("Три мушкетера") #Поиск выданной книги
-return_book("Три мушкетера") #Вернули книгу
-find_book("Три мушкетера") #Поиск возвращенной книги
-
+menu()
