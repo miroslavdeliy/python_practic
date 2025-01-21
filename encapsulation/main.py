@@ -1,43 +1,57 @@
 class BankAccount():
-    def __init__(self, value):
-        self.__balance = value
+    def __init__(self, start_balance= 0):
+        self.__balance = start_balance
 
     #Метод внесения депозита
     def make_deposit(self, value):
-        self.__balance += value
+        if value > 0:
+            self.__balance += value
+            print("Депозит пополнен!")
+        elif value == 0:
+            print("Нельзя пополнить на нулевую сумму!")
+        else:
+            print("Нельзя пополнить на отрицательную сумму!")
 
     #Метод снятия денег
     def take_money(self, value):
-        self.__balance -= value
+        if value > 0 and self.__balance >= value:
+            self.__balance -= value
+            print("Деньги сняты!")
+        elif self.__balance < value:
+            print("Недостаточно денег на счете!")
+        elif value == 0:
+            print("Нельзя снять нулевую сумму!")
+        else:
+            print("Нельзя снять отрицательную сумму!")
 
     #Метод проверки баланса
     def check_balance(self):
-        print(f"Ваш баланс {self.__balance}")
+        return f"Ваш баланс {self.__balance}"
+
+
+#Функция проверки ввода чисел
+def check_enter():
+    try:
+        value = int(input("Введите сумму: "))
+        return value
+    except ValueError:
+        print("Введите сумму числом!")
+        return 0
 
 
 #Основное тело программы
-my_account = BankAccount(0)
+my_account = BankAccount()
 check_exit = True
 while check_exit:
     print("Введите цифру действия:\n1.Внести депозит\
           \n2.Снять деньги\n3.Показать баланс\n4.Выход")
     user_choice = input()
     if user_choice == "1":
-        try:
-            deposit = int(input("Введите сумму депозита: "))
-            my_account.make_deposit(deposit)
-        except ValueError:
-            print("Введите сумму числом!")
-            continue
+        my_account.make_deposit(check_enter())
     elif user_choice == "2":
-        try:
-            money = int(input("Введите сумму снятия: "))
-            my_account.take_money(money)
-        except ValueError:
-            print("Введите сумму числом!")
-            continue
+        my_account.take_money(check_enter())
     elif user_choice == "3":
-        my_account.check_balance()
+        print(my_account.check_balance())
     elif user_choice == "4":
         check_exit = False
     else:
