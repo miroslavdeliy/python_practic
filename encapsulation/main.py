@@ -2,14 +2,17 @@ class BankAccount():
     def __init__(self, start_balance= 0):
         self.__balance = start_balance
 
-    def chek_enter(self):
-        try:
-            value = int(input("Введите сумму: "))
-        except ValueError:
-            print("Введите сумму числом!")
-            return 0
-        else:
-            return value
+    @staticmethod
+    def chek_enter():
+        check_exit = True
+        while check_exit:
+            try:
+                value = int(input("Введите сумму: "))
+                return value
+                check_exit = False
+            except ValueError:
+                print("Введите сумму числом!")
+
 
     #Метод внесения депозита
     def make_deposit(self):
