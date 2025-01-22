@@ -2,8 +2,18 @@ class BankAccount():
     def __init__(self, start_balance= 0):
         self.__balance = start_balance
 
+    def chek_enter(self):
+        try:
+            value = int(input("Введите сумму: "))
+        except ValueError:
+            print("Введите сумму числом!")
+            return 0
+        else:
+            return value
+
     #Метод внесения депозита
-    def make_deposit(self, value):
+    def make_deposit(self):
+        value = self.chek_enter()
         if value > 0:
             self.__balance += value
             print("Депозит пополнен!")
@@ -13,7 +23,8 @@ class BankAccount():
             print("Нельзя пополнить на отрицательную сумму!")
 
     #Метод снятия денег
-    def take_money(self, value):
+    def take_money(self):
+        value = self.chek_enter()
         if value > 0 and self.__balance >= value:
             self.__balance -= value
             print("Деньги сняты!")
@@ -29,16 +40,6 @@ class BankAccount():
         return f"Ваш баланс {self.__balance}"
 
 
-#Функция проверки ввода чисел
-def check_enter():
-    try:
-        value = int(input("Введите сумму: "))
-        return value
-    except ValueError:
-        print("Введите сумму числом!")
-        return 0
-
-
 #Основное тело программы
 my_account = BankAccount()
 check_exit = True
@@ -47,9 +48,9 @@ while check_exit:
           \n2.Снять деньги\n3.Показать баланс\n4.Выход")
     user_choice = input()
     if user_choice == "1":
-        my_account.make_deposit(check_enter())
+        my_account.make_deposit()
     elif user_choice == "2":
-        my_account.take_money(check_enter())
+        my_account.take_money()
     elif user_choice == "3":
         print(my_account.check_balance())
     elif user_choice == "4":
