@@ -5,39 +5,56 @@ def calculate_average(grades):
     return round(mean(grades),2)
 
 
+#Пересчет списка студентов
+def calculation():
+    global dict_average
+    for student in students:
+        average_grade = calculate_average(student["grades"])
+        dict_average[student["name"]] = average_grade
+
+
+#Вывод информации о студентах
+def output_information():
+    for key, value in dict_average.items():
+        if value <= 75:
+            status = "Неуспешен"
+        else:
+            status = "Успешен"
+        print(f"Студент: {key}\nСредний балл: {value}\
+              \nСтатус: {status}\n")
+    print(f"Общий средний балл группы: {group_average()}")
+
+
+#Общий средний балл группы
+def group_average():
+    average = dict_average.values()
+    return calculate_average(average)
+
+
 #Добавление студента
 def add_student(name, grades):
+    global students, dict_average
     students.append({"name": name, "grades": grades})
     print("Студент добавлен!")
-    recalcultation()
+    dict_average[name] = calculate_average(grades)
+    output_information()
 
 
 #Удаление неуспевающего студента
 def delete_student():
-    global min_average
+    global students, dict_average
+    min_average = min(dict_average.values())
+    for name in dict_average:
+        if dict_average[name] == min_average:
+            students_name = name
+            del dict_average[name]
+            break
     for student in students:
-        if calculate_average(student["grades"]) <= min_average:
+        if student["name"] == students_name:
             students.remove({"name": student["name"], "grades": student["grades"]})
-            print("Студент удален")
-    recalcultation()
-
-
-
-#Пересчет списка студентов
-def recalcultation():
-    global min_average
-    list_of_average = []
-    for student in students:
-        average_grade = calculate_average(student["grades"])
-        list_of_average.append(average_grade)
-        if average_grade >= 75:
-            status = "Успешен"
-        else:
-            status = "Не успешен"
-        print(f"Студент {student["name"]}\nСредний балл {average_grade}\
-               \nСтатус {status}\n")
-    min_average = min(list_of_average)
-    print(f"Общий Средний балл потока: {calculate_average(list_of_average)}\n")
+            print("Студент удален!")
+            break
+    output_information()
 
 
 students = [
@@ -46,7 +63,9 @@ students = [
     {"name": "Ron", "grades": [60,70,64]},
     {"name": "Draco", "grades": [60,75,70]}
 ]
-min_average = 0
-recalcultation()
-add_student("Dambldore", [78,89,90])
+dict_average = {}
+
+calculation()
+output_information()
+add_student("Dambldore",[89,90,95])
 delete_student()
