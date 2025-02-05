@@ -2,12 +2,14 @@ from statistics import mean
 
 #Расчет среднего
 def calculate_average(grades):
-    return round(mean(grades),2)
+    if grades:
+        return round(mean(grades),2)
+    else:
+        print("Список пустой!")
 
 
 #Пересчет списка студентов
-def calculation():
-    global dict_average
+def calculation(dict_average, students):
     for student in students:
         average_grade = calculate_average(student["grades"])
         dict_average[student["name"]] = average_grade
@@ -20,8 +22,7 @@ def output_information():
             status = "Неуспешен"
         else:
             status = "Успешен"
-        print(f"Студент: {key}\nСредний балл: {value}\
-              \nСтатус: {status}\n")
+        print(f"Студент: {key}\nСредний балл: {value}\nСтатус: {status}\n")
     print(f"Общий средний балл группы: {group_average()}")
 
 
@@ -32,8 +33,7 @@ def group_average():
 
 
 #Добавление студента
-def add_student(name, grades):
-    global students, dict_average
+def add_student(name, grades, students, dict_average):
     students.append({"name": name, "grades": grades})
     print("Студент добавлен!")
     dict_average[name] = calculate_average(grades)
@@ -41,8 +41,7 @@ def add_student(name, grades):
 
 
 #Удаление неуспевающего студента
-def delete_student():
-    global students, dict_average
+def delete_student(students, dict_average):
     min_average = min(dict_average.values())
     for name in dict_average:
         if dict_average[name] == min_average:
@@ -51,7 +50,7 @@ def delete_student():
             break
     for student in students:
         if student["name"] == students_name:
-            students.remove({"name": student["name"], "grades": student["grades"]})
+            students.remove(student)
             print("Студент удален!")
             break
     output_information()
@@ -65,7 +64,7 @@ students = [
 ]
 dict_average = {}
 
-calculation()
+calculation(dict_average, students)
 output_information()
-add_student("Dambldore",[89,90,95])
-delete_student()
+add_student("Dambldore", [90, 60, 90],students, dict_average)
+delete_student(students,dict_average)
